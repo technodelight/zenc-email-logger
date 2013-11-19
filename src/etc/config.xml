@@ -16,4 +16,5 @@
                 </rewrite>
             </core>
         </models>
+    </global>
 </config>
