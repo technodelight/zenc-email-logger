@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Zenc_EmailLogger>
+            <version>1.0.0</version>
+        </Zenc_EmailLogger>
+    </modules>
+    <global>
+        <models>
+            <zenc_emailLogger>
+                <class>Zenc_EmailLogger_Model</class>
+            </zenc_emailLogger>
+            <core>
+                <rewrite>
+                    <email_template>zenc_emailLogger/email_template</email_template>
+                </rewrite>
+            </core>
+        </models>
+</config>
