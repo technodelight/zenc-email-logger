@@ -1,2 +1,2 @@
 src			app/code/community/Zenc/EmailLogger
-Zenc_EmailLogger.xml	app/etc/local/modules/Zenc_EmailLogger.xml
+Zenc_EmailLogger.xml	app/etc/modules/Zenc_EmailLogger.xml
