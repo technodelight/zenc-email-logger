@@ -12,7 +12,7 @@
             </zenc_emailLogger>
             <core>
                 <rewrite>
-                    <email_template>zenc_emailLogger/email_template</email_template>
+                    <email_template>Zenc_EmailLogger_Model_Email_Template</email_template>
                 </rewrite>
             </core>
         </models>
