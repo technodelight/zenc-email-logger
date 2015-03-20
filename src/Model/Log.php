@@ -218,7 +218,7 @@ class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
     {
         $serializedFields = array('recipients', 'headers');
         foreach ($serializedFields as $field) {
-            $this->setData($field, unserialize($this->_getData($field)));
+            $this->setData($field, unserialize($this->getData($field)));
         }
     }
 
