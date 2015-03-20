@@ -69,7 +69,7 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
     {
         if (!$this->getLog()->hasToEmail()) {
             $this->getLog()->setToEmail($email);
-            $this->getLog()->setToName($name);
+            $this->getLog()->setToName($this->_decodeBase64Header($name));
         }
 
         return parent::addTo($email, $name);
@@ -84,7 +84,11 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
      */
     protected function _addRecipientAndHeader($headerName, $email, $name)
     {
-        $this->getLog()->addRecipient($headerName, $email, $name);
+        $this->getLog()->addRecipient(
+            $headerName,
+            $email,
+            $this->_decodeBase64Header($name)
+        );
 
         parent::_addRecipientAndHeader($headerName, $email, $name);
     }
@@ -100,7 +104,9 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
      */
     public function setSubject($subject)
     {
-        $this->getLog()->setSubject($subject);
+        $this->getLog()->setSubject(
+            $this->_decodeBase64Header($subject)
+        );
 
         return parent::setSubject($subject);
     }
@@ -186,5 +192,17 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
         $this->getLog()->setBodyHtml($html);
 
         return parent::setBodyHtml($html, $charset, $encoding);
+    }
+
+    private function _decodeBase64Header($header)
+    {
+        $prefix = '=?' . $this->getCharset() . '?B?';
+        $suffix = '?=';
+        if (strpos($prefix, $header) !== false) {
+            $base64 = substr($header, strlen($prefix), strlen($header) - strlen($suffix));
+            return base64_decode($base64);
+        }
+
+        return $header;
     }
 }
