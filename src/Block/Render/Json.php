@@ -9,6 +9,11 @@ class Zenc_EmailLogger_Block_Render_Json
         return 'application/json';
     }
 
+    public function toHtml()
+    {
+        return parent::toHtml();
+    }
+
     protected function _toHtml()
     {
         return json_encode($this->getValue());
