@@ -65,7 +65,7 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
      *
      * @return Zenc_EmailLogger_Zend_Mail_Logger Provides fluent interface
      */
-    public function addTo($email, $name='')
+    public function addTo($email, $name = '')
     {
         if (!$this->getLog()->hasToEmail()) {
             $this->getLog()->setToEmail($email);
@@ -170,7 +170,7 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
      * @param string $encoding
      *
      * @return Zenc_EmailLogger_Zend_Mail_Logger Provides fluent interface
-    */
+     */
     public function setBodyText($txt, $charset = null, $encoding = Zend_Mime::ENCODING_QUOTEDPRINTABLE)
     {
         $this->getLog()->setBodyText($txt);
