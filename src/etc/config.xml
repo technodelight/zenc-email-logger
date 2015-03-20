@@ -2,19 +2,61 @@
 <config>
     <modules>
         <Zenc_EmailLogger>
-            <version>1.0.0</version>
+            <version>0.1.0</version>
         </Zenc_EmailLogger>
     </modules>
     <global>
         <models>
-            <zenc_emailLogger>
+            <zenc_emaillogger>
                 <class>Zenc_EmailLogger_Model</class>
-            </zenc_emailLogger>
+                <resourceModel>zenc_emaillogger_resource</resourceModel>
+            </zenc_emaillogger>
+            <zenc_emaillogger_resource>
+                <class>Zenc_EmailLogger_Model_Resource</class>
+                <entities>
+                    <log>
+                        <table>zenc_emaillogger_log</table>
+                    </log>
+                </entities>
+            </zenc_emaillogger_resource>
             <core>
                 <rewrite>
-                    <email_template>Zenc_EmailLogger_Model_Email_Template</email_template>
+                    <email_template>Zenc_EmailLogger_Model_Core_Email_Template</email_template>
                 </rewrite>
             </core>
         </models>
+        <blocks>
+            <zenc_emaillogger>
+                <class>Zenc_EmailLogger_Block</class>
+            </zenc_emaillogger>
+        </blocks>
+        <resources>
+            <zenc_emaillogger_setup>
+                <setup>
+                    <module>Zenc_EmailLogger</module>
+                </setup>
+            </zenc_emaillogger_setup>
+        </resources>
+        <events>
+            <zenc_emaillogger_send_mail>
+                <observers>
+                    <zenc_emaillogger_observer>
+                        <class>Zenc_EmailLogger_Model_Observer</class>
+                        <method>setAdditionalLogData</method>
+                    </zenc_emaillogger_observer>
+                </observers>
+            </zenc_emaillogger_send_mail>
+        </events>
     </global>
+    <frontend>
+        <routers>
+            <zenc_emaillogger>
+                <use>standard</use>
+                <args>
+                    <module>Zenc_EmailLogger</module>
+                    <frontName>emails</frontName>
+                </args>
+            </zenc_emaillogger>
+        </routers>
+    </frontend>
 </config>
