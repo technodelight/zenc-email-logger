@@ -1,40 +1,48 @@
 <?php
 
+/**
+ * @method Mage_Core_Model_Resource_Design _getResource()
+ * @method Mage_Core_Model_Resource_Design getResource()
+ * @method int getEmailId()
+ * @method Zenc_EmailLogger_Model_Log setEmailId(int $value)
+ * @method string getFromEmail()
+ * @method Zenc_EmailLogger_Model_Log setFromEmail(string $value)
+ * @method string getFromName()
+ * @method Zenc_EmailLogger_Model_Log setFromName(string $value)
+ * @method string getToEmail()
+ * @method Zenc_EmailLogger_Model_Log setToEmail(string $value)
+ * @method string getToName()
+ * @method Zenc_EmailLogger_Model_Log setToName(string $value)
+ * @method string getReplyToEmail()
+ * @method Zenc_EmailLogger_Model_Log setReplyToEmail(string $value)
+ * @method string getReplyToName()
+ * @method Zenc_EmailLogger_Model_Log setReplyToName(string $value)
+ * @method Zenc_EmailLogger_Model_Log setRecipients(array $value)
+ * @method string getReturnPath()
+ * @method Zenc_EmailLogger_Model_Log setReturnPath(string $value)
+ * @method string getSubject()
+ * @method Zenc_EmailLogger_Model_Log setSubject(string $value)
+ * @method string getBodyText()
+ * @method Zenc_EmailLogger_Model_Log setBodyText(string $value)
+ * @method string getBodyHtml()
+ * @method Zenc_EmailLogger_Model_Log setBodyHtml(string $value)
+ * @method string getRaw()
+ * @method Zenc_EmailLogger_Model_Log setRaw(string $value)
+ * @method Zenc_EmailLogger_Model_Log setHeaders(array $value)
+ * @method int getCustomerId()
+ * @method Zenc_EmailLogger_Model_Log setCustomerId(int $value)
+ * @method int getQuoteId()
+ * @method Zenc_EmailLogger_Model_Log setQuoteId(int $value)
+ * @method int getOrderId()
+ * @method Zenc_EmailLogger_Model_Log setOrderId(int $value)
+ * @method string getCreatedAt()
+ * @method Zenc_EmailLogger_Model_Log setCreatedAt(string $value)
+ */
 class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
 {
     protected function _construct()
     {
         $this->_init('zenc_emaillogger/log');
-    }
-
-    public function getEmailId()
-    {
-        return $this->getData('email_id');
-    }
-
-    public function setEmailId($id)
-    {
-        return $this->setData('email_id', $id);
-    }
-
-    public function getFromEmail()
-    {
-        return $this->getData('from_email');
-    }
-
-    public function setFromEmail($email)
-    {
-        return $this->setData('from_email', $email);
-    }
-
-    public function getFromName()
-    {
-        return $this->getData('from_name');
-    }
-
-    public function setFromName($name)
-    {
-        return $this->setData('from_name', $name);
     }
 
     public function hasToEmail()
@@ -43,46 +51,9 @@ class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
         return !empty($toEmail);
     }
 
-    public function getToEmail()
-    {
-        return $this->getData('to_email');
-    }
-
-    public function setToEmail($email)
-    {
-        return $this->setData('to_email', $email);
-    }
-
-    public function getToName()
-    {
-        return $this->getData('to_name');
-    }
-
-    public function setToName($name)
-    {
-        return $this->setData('to_name', $name);
-    }
-
-    public function getReplyToEmail()
-    {
-        return $this->getData('reply_to_email');
-    }
-
-    public function setReplyToEmail($email)
-    {
-        return $this->setData('reply_to_email', $email);
-    }
-
-    public function getReplyToName()
-    {
-        return $this->getData('reply_to_name');
-    }
-
-    public function setReplyToName($name)
-    {
-        return $this->setData('reply_to_name', $name);
-    }
-
+    /**
+     * @return array
+     */
     public function getRecipients()
     {
         $recipients = $this->getData('recipients');
@@ -94,11 +65,13 @@ class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
         return $recipients;
     }
 
-    public function setRecipients(array $recipients)
-    {
-        return $this->setData('recipients', $recipients);
-    }
-
+    /**
+     * @param string $type
+     * @param string $email
+     * @param string $name defaults to empty string
+     *
+     * @return Zenc_EmailLogger_Model_Log
+     */
     public function addRecipient($type, $email, $name = '')
     {
         $recipients = $this->getRecipients();
@@ -106,46 +79,9 @@ class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
         return $this->setRecipients($recipients);
     }
 
-    public function getReturnPath()
-    {
-        return $this->getData('return_path');
-    }
-
-    public function setReturnPath($email)
-    {
-        return $this->setData('return_path', $email);
-    }
-
-    public function getSubject()
-    {
-        return $this->getData('subject');
-    }
-
-    public function setSubject($subject)
-    {
-        return $this->setData('subject', $subject);
-    }
-
-    public function getBodyText()
-    {
-        return $this->getData('body_text');
-    }
-
-    public function setBodyText($text)
-    {
-        return $this->setData('body_text', $text);
-    }
-
-    public function getBodyHtml()
-    {
-        return $this->getData('body_html');
-    }
-
-    public function setBodyHtml($html)
-    {
-        return $this->setData('body_html', $html);
-    }
-
+    /**
+     * @return array
+     */
     public function getHeaders()
     {
         $headers = $this->getData('headers');
@@ -157,61 +93,17 @@ class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
         return $headers;
     }
 
-    public function setHeaders(array $headers)
-    {
-        return $this->setData('headers', $headers);
-    }
-
+    /**
+     * @param string $name
+     * @param string $value
+     *
+     * @return Zenc_EmailLogger_Model_Log
+     */
     public function addHeader($name, $value)
     {
         $headers = $this->getHeaders();
         array_push($headers, array('name' => $name, 'value' => $value));
         return $this->setHeaders($headers);
-    }
-
-    public function getRaw()
-    {
-        return $this->getData('raw');
-    }
-
-    public function setRaw($raw)
-    {
-        return $this->setData('raw', $raw);
-    }
-
-    public function getCustomerId()
-    {
-        return $this->getData('customer_id');
-    }
-
-    public function setCustomerId($id)
-    {
-        return $this->setData('customer_id', $id);
-    }
-
-    public function getQuoteId()
-    {
-        return $this->getData('quote_id');
-    }
-
-    public function setQuoteId($id)
-    {
-        return $this->setData('quote_id', $id);
-    }
-
-    public function getOrderId()
-    {
-        return $this->getData('order_id');
-    }
-
-    public function setOrderId($id)
-    {
-        return $this->setData('order_id', $id);
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->getData('created_at');
     }
 
     protected function _beforeSave()
