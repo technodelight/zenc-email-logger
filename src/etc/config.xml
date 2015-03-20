@@ -14,14 +14,14 @@
             <zenc_emaillogger_resource>
                 <class>Zenc_EmailLogger_Model_Resource</class>
                 <entities>
-                    <logitem>
+                    <log>
                         <table>zenc_emaillogger_log</table>
-                    </logitem>
+                    </log>
                 </entities>
             </zenc_emaillogger_resource>
             <core>
                 <rewrite>
-                    <email_template>zenc_emailLogger/email_template</email_template>
+                    <email_template>Zenc_EmailLogger_Model_Core_Email_Template</email_template>
                 </rewrite>
             </core>
         </models>

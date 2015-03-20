@@ -36,17 +36,11 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
     /**
      * @todo this method could use a factory to support other transport types
      *
-     * @param Zend_Mail_Transport_Abstract $transport
-     *
      * @return Zenc_EmailLogger_Model_Zend_Mail_Transport_Logger
      */
-    public function getTransportLoggerInstance(Zend_Mail_Transport_Abstract $transport)
+    public function getTransportLoggerInstance()
     {
-        if (is_null($transport)) {
-            $transport = Mage::getModel('zenc_emaillogger/zend_mail_transport_logger');
-        }
-
-        return $transport;
+        return Mage::getModel('zenc_emaillogger/zend_mail_transport_logger');
     }
 
     /**
@@ -60,7 +54,7 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
      */
     public function send($transport = null)
     {
-        return parent::send($this->getTransportLoggerInstance($transport));
+        return parent::send($this->getTransportLoggerInstance());
     }
 
     /**

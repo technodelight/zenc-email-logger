@@ -1,6 +1,6 @@
 <?php
 
-class Zenc_EmailLogger_Block_Render_Interface
+interface Zenc_EmailLogger_Block_Render_Interface
 {
     /**
      * Always the content type string for the given renderer
@@ -8,4 +8,11 @@ class Zenc_EmailLogger_Block_Render_Interface
      * @return string
      */
     public function getContentType();
+
+    /**
+     * Should render the contents and return with a string
+     *
+     * @return string
+     */
+    public function toHtml();
 }

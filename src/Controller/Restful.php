@@ -31,23 +31,23 @@ class Zenc_EmailLogger_Controller_Restful
         $render = $this->_getRenderer($this->_getRestFormat())->setValue($value);
         $this->getResponse()
             ->setHeader('Content-Type', $render->getContentType())
-            ->setBody((string) $render)
+            ->setBody($render->toHtml());
     }
 
     private function _getRenderer($format)
     {
-        return $this->_getLayout()->createBlock($this->_formats[$format]);
+        return $this->getLayout()->createBlock($this->_formats[$format]);
     }
 
     private function _getRestFormat()
     {
         $forcedFormat = strtolower($this->getRequest()->getParam(static::PARAM_FORMAT));
 
-        if ($this->_isAllowed$forcedFormat, $this->_formats) {
+        if ($this->_isAllowed($forcedFormat, array_keys($this->_formats))) {
             return $forcedFormat;
         }
         foreach ($this->_getHttpFormats() as $httpFormat) {
-            if ($this->_isAllowed($httpFormat, $this->_formats)) {
+            if ($this->_isAllowed($httpFormat, array_keys($this->_formats))) {
                 return $httpFormat;
             }
         }

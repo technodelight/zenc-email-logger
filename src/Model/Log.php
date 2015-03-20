@@ -2,10 +2,10 @@
 
 class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
 {
-	protected function _construct()
-	{
-		$this->_init('zenc_emaillogger/log');
-	}
+    protected function _construct()
+    {
+        $this->_init('zenc_emaillogger/log');
+    }
 
     public function getEmailId()
     {
@@ -39,7 +39,7 @@ class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
 
     public function hasToEmail()
     {
-        $toEmail = $this->getToEmail()
+        $toEmail = $this->getToEmail();
         return !empty($toEmail);
     }
 
@@ -212,5 +212,25 @@ class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
     public function getCreatedAt()
     {
         return $this->getData('created_at');
+    }
+
+    protected function _afterLoad()
+    {
+        $serializedFields = array('recipients', 'headers');
+        foreach ($serializedFields as $field) {
+            $this->setData($field, unserialize($this->_getData($field)));
+        }
+    }
+
+    protected function _beforeSave()
+    {
+        $serializedFields = array('recipients', 'headers');
+        foreach ($serializedFields as $field) {
+            $this->setData($field, serialize($this->getData($field)));
+        }
+
+        if ($this->isObjectNew()) {
+            $this->setData('created_at', date('Y-m-d H:i:s'));
+        }
     }
 }

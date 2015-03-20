@@ -1,6 +1,6 @@
 <?php
 
-$table = $this->getConnection()->newTable($this->getTable('zenc_emaillogger/logitem'));
+$table = $this->getConnection()->newTable($this->getTable('zenc_emaillogger/log'));
 
 $table->addColumn(
     'mail_id',

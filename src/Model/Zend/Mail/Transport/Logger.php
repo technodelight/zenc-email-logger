@@ -22,7 +22,7 @@ class Zenc_EmailLogger_Model_Zend_Mail_Transport_Logger
                 'log' => $this->_mail->getLog(),
                 'mail' => $this->_mail,
                 'transport' => $this,
-            ),
+            )
         );
     }
 }
