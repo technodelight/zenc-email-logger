@@ -14,9 +14,9 @@ class Zenc_EmailLogger_Block_Render_Html
         $data = $this->getValue();
 
         switch (true) {
-            case !empty(trim($data['body_html'])):
+            case !empty($data['body_html']):
                 return $data['body_html'];
-            case !empty(trim($data['body_text'])):
+            case !empty($data['body_text']):
                 return $data['body_text'];
             default:
                 return 'Email has no visible content';
