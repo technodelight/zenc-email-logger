@@ -22,10 +22,10 @@ class Zenc_EmailLogger_RestController extends Zenc_EmailLogger_Controller_Restfu
     {
         $id = $this->getRequest()->get('id');
         if ($id == 'last') {
-            $item = $this->_getCollection()->getLastItem();
-        } else {
-            $item = Mage::getModel('zenc_emaillogger/log')->load($id);
+            $id = $this->_getCollection()->getLastItem()->getId();
         }
+
+        $item = Mage::getModel('zenc_emaillogger/log')->load($id);
 
         $this->render($item->getData());
     }
