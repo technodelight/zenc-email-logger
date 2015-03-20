@@ -3,6 +3,24 @@
 class Zenc_EmailLogger_Model_Zend_Mail_Transport_Logger
     extends Zend_Mail_Transport_Abstract
 {
+    /**
+     * @var Zend_Mail_Transport_Abstract
+     */
+    private $_originalTransport;
+
+    public function __construct(Zend_Mail_Transport_Abstract $transport = null)
+    {
+        $this->_originalTransport = $transport;
+    }
+
+    /**
+     * @return Zend_Mail_Transport_Abstract|null
+     */
+    public function getOriginalTransport()
+    {
+        return $this->_originalTransport;
+    }
+
     protected function _sendMail()
     {
         $log = $this->_mail->getLog();
