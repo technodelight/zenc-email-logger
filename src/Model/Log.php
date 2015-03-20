@@ -214,21 +214,8 @@ class Zenc_EmailLogger_Model_Log extends Mage_Core_Model_Abstract
         return $this->getData('created_at');
     }
 
-    protected function _afterLoad()
-    {
-        $serializedFields = array('recipients', 'headers');
-        foreach ($serializedFields as $field) {
-            $this->setData($field, unserialize($this->getData($field)));
-        }
-    }
-
     protected function _beforeSave()
     {
-        $serializedFields = array('recipients', 'headers');
-        foreach ($serializedFields as $field) {
-            $this->setData($field, serialize($this->getData($field)));
-        }
-
         if ($this->isObjectNew()) {
             $this->setData('created_at', date('Y-m-d H:i:s'));
         }
