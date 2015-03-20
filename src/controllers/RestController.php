@@ -9,7 +9,7 @@ class Zenc_EmailLogger_RestController extends Zenc_EmailLogger_Controller_Restfu
         $this->_formats['html'] = 'zenc_emaillogger/render_dump';
 
         $this->render(array(
-            'count' => $this->_getCollection()->count(),
+            'count' => $this->_getCollection()->getSize(),
             'items' => $this->_getCollection()->walk(function($item) {
                 return array(
                     'id' => $item->getId(),
