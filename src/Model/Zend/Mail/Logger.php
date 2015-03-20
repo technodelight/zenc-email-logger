@@ -198,8 +198,8 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
     {
         $prefix = '=?' . $this->getCharset() . '?B?';
         $suffix = '?=';
-        if (strpos($prefix, $header) !== false) {
-            $base64 = substr($header, strlen($prefix), strlen($header) - strlen($suffix));
+        if (strpos($header, $prefix) !== false) {
+            $base64 = substr($header, strlen($prefix), strlen($suffix) * -1);
             return base64_decode($base64);
         }
 
