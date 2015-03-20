@@ -3,8 +3,8 @@
 class Zenc_EmailLogger_Controller_Restful
     extends Mage_Core_Controller_Front_Action
 {
-    const PARAM_METHOD = '_method';
-    const PARAM_FORMAT = '_format';
+    const PARAM_METHOD = 'method';
+    const PARAM_FORMAT = 'format';
 
     protected $_methods = array(
         'get', 'post', 'put', 'delete', 'head'
@@ -12,6 +12,7 @@ class Zenc_EmailLogger_Controller_Restful
 
     protected $_formats = array(
         'html' => 'zenc_emaillogger/render_html',
+        'dump' => 'zenc_emaillogger/render_dump',
         'json' => 'zenc_emaillogger/render_json',
     );
 

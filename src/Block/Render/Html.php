@@ -11,6 +11,15 @@ class Zenc_EmailLogger_Block_Render_Html
 
     protected function _toHtml()
     {
-        return '<pre>' . var_export($this->getValue(), true) . '</pre>';
+        $data = $this->getValue();
+
+        switch (true) {
+            case !empty(trim($data['body_html'])):
+                return $data['body_html'];
+            case !empty(trim($data['body_text'])):
+                return $data['body_text'];
+            default:
+                return 'Email has no visible content';
+        }
     }
 }
