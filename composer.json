@@ -1,7 +1,7 @@
 {
     "name": "technodelight/zenc-email-logger",
     "type": "magento-module",
-    "license": "proprietary",
+    "license": "OSLv3",
     "description": "Email logging functionality for Magento. Useful if you don't want to deal with sendmail/postfix/whatever setups and you want to debug/style email contents on your local environment.",
     "repositories": [
         {
