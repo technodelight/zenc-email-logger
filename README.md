@@ -24,6 +24,11 @@ The logger has the following advantages over other tools:
 <your host>/emails/rest/read/id/last
 ```
  To retrieve the contents of a specific email you can use the ID of the log record instead of `last`, like `/emails/rest/read/id/1` .
+ 
+ The REST controller has the ability to change the format of rendering. Just append `?format=<format>` to the end of the URL. Currently available renderers:
+ - dump (which does a `var_dump()` on the log item's data)
+ - html (renders the email's HTML content if present)
+ - json (dumps every data in a friendly format, so you could use this module in your CI)
 
 ## INSTALLATION Via Modman - Recommended (https://github.com/colinmollenhour/modman)
 
