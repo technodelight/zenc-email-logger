@@ -52,7 +52,7 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
      *
      * @return Zenc_EmailLogger_Zend_Mail_Logger Provides fluent interface
      */
-    public function send(Zend_Mail_Transport_Abstract $transport = null)
+    public function send($transport = null)
     {
         return parent::send($this->getTransportLoggerInstance($transport));
     }
