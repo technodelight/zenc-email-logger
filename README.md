@@ -13,6 +13,18 @@ The logger has the following advantages over other tools:
  - allow adding extra informations before saving to log instance by subscribing to the custom event zenc_emaillogger_send_mail
  - restful API to retrieve email details, with formatting capabilities (dump, html, json formats supported), allows retrieving last sent email
 
+#### How to use
+ The content's captured by the logger is now only visible via the rest controller. There's a plan to add an admin panel for this in the future.
+ To retrieve the list of sent mails, visit your browser with this URL:
+```
+<your host>/emails/rest/list
+```
+ To retrieve the last email which have been sent, just go here:
+```
+<your host>/emails/rest/read/id/last
+```
+ To retrieve the contents of a specific email you can use the ID of the log record instead of `last`, like `/emails/rest/read/id/1` .
+
 ## INSTALLATION Via Modman - Recommended (https://github.com/colinmollenhour/modman)
 
 #### 1) Install Modman:
