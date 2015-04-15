@@ -9,11 +9,6 @@ class Zenc_EmailLogger_Block_Render_Html
         return 'text/html';
     }
 
-    public function toHtml()
-    {
-        return parent::toHtml();
-    }
-
     protected function _toHtml()
     {
         $data = $this->getValue();
