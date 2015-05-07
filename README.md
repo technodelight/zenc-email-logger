@@ -30,6 +30,13 @@ The logger has the following advantages over other tools:
  - html (renders the email's HTML content if present)
  - json (dumps every data in a friendly format, so you could use this module in your CI)
 
+##### Configuration options
+
+There are two options you can set under **System -> Configuration -> Developer -> Email Logger**:
+
+- Enabled - enables/disables the functionality
+- Enable Passthrough - enables/disables passthrough (when enabled emails are both logged AND sent out)
+
 ## INSTALLATION Via Modman - Recommended (https://github.com/colinmollenhour/modman)
 
 #### 1) Install Modman:

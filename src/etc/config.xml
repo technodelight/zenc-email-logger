@@ -25,6 +25,11 @@
                 </rewrite>
             </core>
         </models>
+        <helpers>
+            <zenc_emaillogger>
+                <class>Zenc_EmailLogger_Helper</class>
+            </zenc_emaillogger>
+        </helpers>
         <blocks>
             <zenc_emaillogger>
                 <class>Zenc_EmailLogger_Block</class>
@@ -59,4 +64,12 @@
             </zenc_emaillogger>
         </routers>
     </frontend>
+    <default>
+        <dev>
+            <email_logger>
+                <enabled>1</enabled>
+                <enable_passthru>0</enable_passthru>
+            </email_logger>
+        </dev>
+    </default>
 </config>

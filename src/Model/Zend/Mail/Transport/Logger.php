@@ -1,8 +1,13 @@
 <?php
 
 class Zenc_EmailLogger_Model_Zend_Mail_Transport_Logger
-    extends Zend_Mail_Transport_Abstract
+    extends Zend_Mail_Transport_Sendmail
 {
+    /**
+     * Configuration flag for enabling passthrough (sending email in addition to saving it)
+     */
+    const XML_PATH_ENABLE_PASSTHRU = 'dev/email_logger/enable_passthru';
+
     /**
      * @var Zend_Mail_Transport_Abstract
      */
@@ -21,7 +26,7 @@ class Zenc_EmailLogger_Model_Zend_Mail_Transport_Logger
         return $this->_originalTransport;
     }
 
-    protected function _sendMail()
+    public function _sendMail()
     {
         $log = $this->_mail->getLog();
 
@@ -31,6 +36,10 @@ class Zenc_EmailLogger_Model_Zend_Mail_Transport_Logger
         $this->_dispatchEvent();
 
         $log->save();
+
+        if (Mage::getStoreConfigFlag(self::XML_PATH_ENABLE_PASSTHRU)) {
+            parent::_sendMail();
+        }
     }
 
     protected function _dispatchEvent()
