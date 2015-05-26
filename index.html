@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Zenc-email-logger by technodelight</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Zenc-email-logger</h1>
+          <h2>Email logging functionality for Magento</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/technodelight/zenc-email-logger/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/technodelight/zenc-email-logger/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/technodelight/zenc-email-logger" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="zenc-email-logger" class="anchor" href="#zenc-email-logger" aria-hidden="true"><span class="octicon octicon-link"></span></a>zenc-email-logger</h1>
+
+<p><a href="https://scrutinizer-ci.com/g/technodelight/zenc-email-logger/?branch=master"><img src="https://scrutinizer-ci.com/g/technodelight/zenc-email-logger/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
+<a href="https://scrutinizer-ci.com/g/technodelight/zenc-email-logger/build-status/master"><img src="https://scrutinizer-ci.com/g/technodelight/zenc-email-logger/badges/build.png?b=master" alt="Build Status"></a></p>
+
+<p>Email logging functionality for Magento. Useful if you don't want to deal with sendmail/postfix/whatever setups and you want to debug/style email contents on your local environment.
+The logger has the following advantages over other tools:</p>
+
+<ul>
+<li>Could be added easily to existing projects without requiring any special 3rd party tool</li>
+<li>Logs emails with detailed (extendable) informations to database, including headers and raw email output</li>
+<li>Logging through re-usable elements (A compatible <code>Zend_Mail</code> override and a custom zend mail transport for logging)</li>
+<li>allow adding extra informations before saving to log instance by subscribing to the custom event zenc_emaillogger_send_mail</li>
+<li>restful API to retrieve email details, with formatting capabilities (dump, html, json formats supported), allows retrieving last sent email</li>
+</ul>
+
+<h4>
+<a id="how-to-use" class="anchor" href="#how-to-use" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to use</h4>
+
+<p>The content's captured by the logger is now only visible via the rest controller. There's a plan to add an admin panel for this in the future.
+ To retrieve the list of sent mails, visit your browser with this URL:</p>
+
+<pre><code>&lt;your host&gt;/emails/rest/list
+</code></pre>
+
+<p>To retrieve the last email which have been sent, just go here:</p>
+
+<pre><code>&lt;your host&gt;/emails/rest/read/id/last
+</code></pre>
+
+<p>To retrieve the contents of a specific email you can use the ID of the log record instead of <code>last</code>, like <code>/emails/rest/read/id/1</code> .</p>
+
+<p>The REST controller has the ability to change the format of rendering. Just append <code>?format=&lt;format&gt;</code> to the end of the URL. Currently available renderers:</p>
+
+<ul>
+<li>dump (which does a <code>var_dump()</code> on the log item's data)</li>
+<li>html (renders the email's HTML content if present)</li>
+<li>json (dumps every data in a friendly format, so you could use this module in your CI)</li>
+</ul>
+
+<h5>
+<a id="configuration-options" class="anchor" href="#configuration-options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration options</h5>
+
+<p>There are two options you can set under <strong>System -&gt; Configuration -&gt; Developer -&gt; Email Logger</strong>:</p>
+
+<ul>
+<li>Enabled - enables/disables the functionality</li>
+<li>Enable Passthrough - enables/disables passthrough (when enabled emails are both logged AND sent out)</li>
+</ul>
+
+<h2>
+<a id="installation-via-modman---recommended-httpsgithubcomcolinmollenhourmodman" class="anchor" href="#installation-via-modman---recommended-httpsgithubcomcolinmollenhourmodman" aria-hidden="true"><span class="octicon octicon-link"></span></a>INSTALLATION Via Modman - Recommended (<a href="https://github.com/colinmollenhour/modman">https://github.com/colinmollenhour/modman</a>)</h2>
+
+<h4>
+<a id="1-install-modman" class="anchor" href="#1-install-modman" aria-hidden="true"><span class="octicon octicon-link"></span></a>1) Install Modman:</h4>
+
+<pre><code>bash &lt; &lt;(wget -O - https://raw.github.com/colinmollenhour/modman/master/modman-installer)
+</code></pre>
+
+<p>or</p>
+
+<pre><code>bash &lt; &lt;(curl -s https://raw.github.com/colinmollenhour/modman/master/modman-installer)
+source ~/.profile
+</code></pre>
+
+<h4>
+<a id="2-install-zenc-emaillogger" class="anchor" href="#2-install-zenc-emaillogger" aria-hidden="true"><span class="octicon octicon-link"></span></a>2) Install Zenc EmailLogger</h4>
+
+<pre>
+cd [magento root folder]
+modman init
+modman clone https://github.com/technodelight/zenc-email-logger.git
+</pre>
+
+<ul>
+<li>Make sure you've cleaned Magento's cache to enable the new module; hit refresh</li>
+</ul>
+
+<h4>
+<a id="how-to-update" class="anchor" href="#how-to-update" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to update</h4>
+
+<pre>
+modman update zenc-email-logger
+</pre>
+
+<ul>
+<li>Clean Magento's cache to make sure new changes will be enabled.</li>
+<li>Run setup scripts with n98-magerun</li>
+</ul>
+        </section>
+
+        <footer>
+          Zenc-email-logger is maintained by <a href="https://github.com/technodelight">technodelight</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
