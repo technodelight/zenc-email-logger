@@ -58,24 +58,6 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
     }
 
     /**
-     * Adds To-header and recipient, $email can be an array, or a single string address
-     *
-     * @param string|array $email
-     * @param string $name
-     *
-     * @return Zenc_EmailLogger_Zend_Mail_Logger Provides fluent interface
-     */
-    public function addTo($email, $name = '')
-    {
-        if (!$this->getLog()->hasToEmail()) {
-            $this->getLog()->setToEmail($email);
-            $this->getLog()->setToName($this->_decodeBase64Header($name));
-        }
-
-        return parent::addTo($email, $name);
-    }
-
-    /**
      * Helper function for adding a recipient and the corresponding header
      *
      * @param string $headerName
@@ -84,11 +66,16 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
      */
     protected function _addRecipientAndHeader($headerName, $email, $name)
     {
-        $this->getLog()->addRecipient(
-            $headerName,
-            $email,
-            $this->_decodeBase64Header($name)
-        );
+        if (!$this->getLog()->hasToEmail() && $headerName === 'To') {
+            $this->getLog()->setToEmail($email);
+            $this->getLog()->setToName($this->_decodeBase64Header($name));
+        } else {
+            $this->getLog()->addRecipient(
+                $headerName,
+                $email,
+                $this->_decodeBase64Header($name)
+            );
+        }
 
         parent::_addRecipientAndHeader($headerName, $email, $name);
     }
