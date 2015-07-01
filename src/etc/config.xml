@@ -22,6 +22,7 @@
             <core>
                 <rewrite>
                     <email_template>Zenc_EmailLogger_Model_Core_Email_Template</email_template>
+                    <email_queue>Zenc_EmailLogger_Model_Email_Queue</email_queue>
                 </rewrite>
             </core>
         </models>

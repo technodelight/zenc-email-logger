@@ -11,7 +11,7 @@ class Zenc_EmailLogger_Model_Core_Email_Template extends Mage_Core_Model_Email_T
      */
     public function getMail()
     {
-        if (!Mage::getStoreConfigFlag(self::XML_PATH_ENABLED)) {
+        if (!Mage::helper('zenc_emaillogger')->isEnabled()) {
             return parent::getMail();
         }
 
