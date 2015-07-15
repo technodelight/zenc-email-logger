@@ -14,7 +14,7 @@ class Zenc_EmailLogger_Model_Zend_Mail_Logger extends Zend_Mail
      */
     public function __construct($charset = null)
     {
-        if ($charset === null) {
+        if (empty($charset)) {
             $charset = 'utf-8';
         }
 
