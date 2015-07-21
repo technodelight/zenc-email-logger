@@ -69,3 +69,9 @@ modman update zenc-email-logger
 
  - Clean Magento's cache to make sure new changes will be enabled.
  - Run setup scripts with n98-magerun
+
+#### Notes
+ This readme is also available as a github page: http://technodelight.github.io/zenc-email-logger/
+ 
+#### License
+ [OSL v3](http://opensource.org/licenses/OSL-3.0)
