@@ -2,8 +2,6 @@
 
 class Zenc_EmailLogger_Model_Core_Email_Template extends Mage_Core_Model_Email_Template
 {
-    const XML_PATH_ENABLED = 'dev/email_logger/enabled';
-
     /**
      * Retrieve mail object instance
      *
