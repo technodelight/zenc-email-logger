@@ -65,6 +65,17 @@
             </zenc_emaillogger>
         </routers>
     </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Zenc_EmailLogger after="Mage_Adminhtml">Zenc_EmailLogger_Adminhtml</Zenc_EmailLogger>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
     <default>
         <dev>
             <email_logger>
