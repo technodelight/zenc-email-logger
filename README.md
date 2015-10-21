@@ -10,7 +10,7 @@ The logger has the following advantages over other tools:
  - Could be added easily to existing projects without requiring any special 3rd party tool
  - Logs emails with detailed (extendable) informations to database, including headers and raw email output
  - Logging through re-usable elements (A compatible `Zend_Mail` override and a custom zend mail transport for logging)
- - allow adding extra informations before saving to log instance by subscribing to the custom event zenc_emaillogger_send_mail
+ - allow adding extra informations before saving to log instance by subscribing to the custom event `zenc_emaillogger_send_mail`
  - restful API to retrieve email details, with formatting capabilities (dump, html, json formats supported), allows retrieving last sent email
 
 #### How to use
@@ -24,7 +24,7 @@ The logger has the following advantages over other tools:
 <your host>/emails/rest/read/id/last
 ```
  To retrieve the contents of a specific email you can use the ID of the log record instead of `last`, like `/emails/rest/read/id/1` .
- 
+
  The REST controller has the ability to change the format of rendering. Just append `?format=<format>` to the end of the URL. Currently available renderers:
  - dump (which does a `var_dump()` on the log item's data)
  - html (renders the email's HTML content if present)
@@ -72,6 +72,6 @@ modman update zenc-email-logger
 
 #### Notes
  This readme is also available as a github page: http://technodelight.github.io/zenc-email-logger/
- 
+
 #### License
  [OSL v3](http://opensource.org/licenses/OSL-3.0)

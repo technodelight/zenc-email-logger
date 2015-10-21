@@ -20,6 +20,10 @@ class Zenc_EmailLogger_Model_Email_Queue extends Mage_Core_Model_Email_Queue
 
         $this->_logQueue();
 
+        if (Mage::helper('zenc_emaillogger')->isPassthruEnabled()) {
+            return parent::send();
+        }
+
         return $this;
     }
 
