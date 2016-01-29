@@ -76,6 +76,15 @@
             </adminhtml>
         </routers>
     </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <zenc_emaillogger>
+                    <file>zenc_emaillogger/zenc_emaillogger.xml</file>
+                </zenc_emaillogger>
+            </updates>
+        </layout>
+    </adminhtml>
     <default>
         <dev>
             <email_logger>

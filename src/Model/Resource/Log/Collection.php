@@ -7,4 +7,10 @@ class Zenc_EmailLogger_Model_Resource_Log_Collection
     {
         $this->_init('zenc_emaillogger/log');
     }
+
+    public function orderByTimeDesc()
+    {
+        $this->addOrder('created_at', self::SORT_ORDER_DESC);
+        return $this;
+    }
 }
