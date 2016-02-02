@@ -1,14 +1,54 @@
-<div id="jsGrid"></div>
+<style type="text/css">
+    #zenc-email-logger {
+        width: 100%;
+        clear: both;
+    }
+    #jsGridWrapper {
+        float: left;
+        width: 55%;
+        margin-right: 20px;
+    }
+    #jsViewWrapper {
+        float: left;
+        width: 43%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+    }
+    #jsViewWrapper iframe {
+        width: 100%;
+        height: 360px;
+        border: 1px solid #999;
+        margin-bottom: 20px;
+        overflow: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    #jsViewWrapper div {
+        width: 100%;
+        margin-top: 360px;
+    }
+</style>
+
+<div id="zenc-email-logger">
+    <div id="jsGridWrapper">
+        <div id="jsGrid"></div>
+    </div>
+    <div id="jsViewWrapper" class="jsgrid-grid-body">
+        Click on an item on the left to see it's contents
+        <div id="jsView"></div>
+    </div>
+</div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.3.1/jsgrid.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/basicModal/3.3.2/basicModal.min.js"></script>
 
 <script type="text/javascript">
     jQuery.noConflict();
     (function($) {
 
         function renderTable(data) {
-            var $table = $('<table></table>');
+            var $table = $('<table></table>').addClass('jsgrid-table');
 
             $.each(data, function(key, value) {
                 var $row = $('<tr><td /><td /></tr>');
@@ -24,6 +64,9 @@
                 }
                 $table.append($row);
             });
+            $table.find('tr:even').addClass('jsgrid-row');
+            $table.find('tr:odd').addClass('jsgrid-row');
+            $table.find('tr td:first-child').width(130);
 
             return $table;
         }
@@ -42,15 +85,13 @@
                     data: {id: data.item.id},
                     dataType: "json",
                     success: function(data) {
-                        basicModal.show({
-                            body: $('<div />').append(renderTable(data)).html(),
-                            buttons: {
-                                cancel: {
-                                    title: 'Close',
-                                    fn: basicModal.close
-                                }
-                            }
-                        })
+                        $('#jsViewWrapper').empty()
+                            .append(
+                                $('<iframe />').attr('src', "<?php echo Mage::getUrl('zenc_emaillogger/rest/read') ?>?format=html&id=" + data.mail_id)
+                                    .width($('#jsViewWrapper').width() - 2)
+                            )
+                            .append($('<div />').append(renderTable(data)))
+                            .height($('#jsGrid').height());
                     }
                 });
             },
@@ -67,6 +108,8 @@
             },
             fields: [
                 { name: "id", title: "Id", type: "number", width: 50 },
+                { name: "to_email", title: "To Email", type: "text" },
+                { name: "to_name", title: "To Name", type: "text" },
                 { name: "subject", title: "Subject", type: "text" },
                 { name: "created_at", title: "Send time", type: "text" },
             ]

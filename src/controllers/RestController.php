@@ -25,6 +25,8 @@ class Zenc_EmailLogger_RestController extends Zenc_EmailLogger_Controller_Restfu
                     return array(
                         'id' => $item->getId(),
                         'subject' => $item->getSubject(),
+                        'to_email' => $item->getToEmail(),
+                        'to_name' => $item->getToName(),
                         'created_at' => $item->getCreatedAt(),
                     );
                 })
