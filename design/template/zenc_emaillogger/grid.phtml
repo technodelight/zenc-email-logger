@@ -15,19 +15,51 @@
         overflow-y: auto;
         position: relative;
     }
-    #jsViewWrapper iframe {
+    #jsViewWrapper .tab-wrapper {
         width: 100%;
         height: 360px;
-        border: 1px solid #999;
+        border: none;
+        border-top: 1px solid #f9f9f9;
+        border-bottom: 1px solid #f9f9f9;
         margin-bottom: 20px;
-        overflow: auto;
+        overflow: hidden;
         position: absolute;
         top: 0;
         left: 0;
     }
-    #jsViewWrapper div {
+    #jsViewWrapper .tab-wrapper .contents {
+        border-top: 1px solid #f9f9f9;
+        margin-top: 25px;
+    }
+    #jsViewWrapper .codeblock,
+    #jsViewWrapper iframe {
+        overflow: auto;
+        height: 335px;
+        width: 100%;
+        border: none;
+    }
+    #jsViewWrapper .codeblock {
+        color: ;
+    }
+    #jsViewWrapper .table {
         width: 100%;
         margin-top: 360px;
+    }
+    #jsViewWrapper .tab li {
+        display: inline-block;
+        float: left;
+        text-align: center;
+        width: 100px;
+        padding: 0 10px;
+        line-height: 25px;
+        border-right: 1px solid #f9f9f9;
+        cursor: pointer;
+    }
+    #jsViewWrapper .tab li.active {
+        background: #f9f9f9;
+    }
+    #jsViewWrapper .tab li:hover {
+        background: #c4e2ff;
     }
 
     @media(max-width: 1200px) {
@@ -44,26 +76,25 @@
     </div>
     <div id="jsViewWrapper" class="jsgrid-grid-body">
         Click on an item on the left to see it's contents
-        <div id="jsView"></div>
     </div>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jsgrid/1.3.1/jsgrid.min.js"></script>
 
-    if(typeof jQuery == 'undefined') {
-        jqsrc = document.createElement('script');
-        jqsrc.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.0/jquery.min.js');
-        document.getElementsByTagName('head')[0].appendChild(jqsrc);
-    }
+<script type="text/javascript">
 
     (function($) {
 
-        $('head').append($('<script />').attr('src', 'https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.3.1/jsgrid.min.js'));
-
         function renderTable(data) {
             var $table = $('<table></table>').addClass('jsgrid-table');
+            var excludeKeys = ['body_html', 'body_text', 'raw'];
 
             $.each(data, function(key, value) {
+                if ($.inArray(key, excludeKeys) !== -1) {
+                    return;
+                }
+
                 var $row = $('<tr><td /><td /></tr>');
 
                 $row.find('td:first').css('fontWeight', 'bold').text(
@@ -84,6 +115,59 @@
             return $table;
         }
 
+        function renderEmail(data) {
+            var __createIframe = function(url) {
+                var frame = $('<iframe />').width($('#jsViewWrapper').width() - 2);
+                if (url) frame.attr('src', url);
+                return frame;
+            }
+            var __createCodeBlock = function(content) {
+                return $('<pre />').addClass('codeblock').text(content).width($('#jsViewWrapper').width() - 2);
+            }
+
+            $('#jsViewWrapper').empty()
+                .append(
+                    $('<div />').addClass('tab-wrapper')
+                        .append(
+                            $('<div />').addClass('tab').append(
+                                $('<ul>')
+                                  .append($('<li />').text('HTML').addClass('active'))
+                                  .append($('<li />').text('Text'))
+                                  .append($('<li />').text('Raw'))
+                            )
+                        )
+                        .append(
+                            $('<div />').addClass('contents').append(
+                                $('<ul>')
+                                  .append(
+                                      $('<li />').append(
+                                          __createIframe("<?php echo Mage::getUrl('zenc_emaillogger/rest/read') ?>?format=html&id=" + data.mail_id)
+                                      )
+                                  )
+                                  .append(
+                                      $('<li />').append(
+                                          __createCodeBlock(data.body_text)
+                                      ).hide()
+                                  )
+                                  .append(
+                                      $('<li />').append(
+                                          __createCodeBlock(data.raw)
+                                      ).hide()
+                                  )
+                            )
+                        )
+                )
+                .append($('<div />').addClass('table').append(renderTable(data)))
+                .height($('#jsGrid').height());
+
+            $('#jsViewWrapper').find('.tab li').on('click', function() {
+                $('#jsViewWrapper').find('.tab li').removeClass('active');
+                $(this).addClass('active');
+                $('#jsViewWrapper').find('.contents li').hide();
+                $('#jsViewWrapper').find('.contents li').eq($(this).index()).show();
+            });
+        }
+
         $("#jsGrid").jsGrid({
             width: "100%",
 
@@ -98,13 +182,7 @@
                     data: {id: data.item.id},
                     dataType: "json",
                     success: function(data) {
-                        $('#jsViewWrapper').empty()
-                            .append(
-                                $('<iframe />').attr('src', "<?php echo Mage::getUrl('zenc_emaillogger/rest/read') ?>?format=html&id=" + data.mail_id)
-                                    .width($('#jsViewWrapper').width() - 2)
-                            )
-                            .append($('<div />').append(renderTable(data)))
-                            .height($('#jsGrid').height());
+                        renderEmail(data);
                     }
                 });
             },
