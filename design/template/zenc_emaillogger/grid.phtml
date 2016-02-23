@@ -50,9 +50,11 @@
 
 <script type="text/javascript">
 
-    typeof jQuery == 'undefined' ? document.getElementsByTagName('head')[0].appendChild(
-         document.createElement('srcipt').setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.0/jquery.min.js')
-    );
+    if(typeof jQuery == 'undefined') {
+        jqsrc = document.createElement('script');
+        jqsrc.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.0/jquery.min.js');
+        document.getElementsByTagName('head')[0].appendChild(jqsrc);
+    }
 
     (function($) {
 
