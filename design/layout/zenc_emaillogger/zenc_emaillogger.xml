@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_emaillogger_index>
+        <reference name="head">
+            <action method="addLinkRel">
+                <rel>stylesheet</rel>
+                <href>https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.3.1/jsgrid.min.css</href>
+            </action>
+            <action method="addLinkRel">
+                <rel>stylesheet</rel>
+                <href>https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.3.1/jsgrid-theme.min.css</href>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="zenc_emaillogger_grid" template="zenc_emaillogger/grid.phtml"></block>
+        </reference>
+    </adminhtml_emaillogger_index>
+</layout>

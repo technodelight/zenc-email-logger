@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <zenc_emaillogger translate="title">
+                    <title>Zenc Email Logger</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/emailLogger/index</action>
+                </zenc_emaillogger>
+            </children>
+        </system>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <zenc_emaillogger translate="title" module="zenc_emaillogger">
+                                <title>Zenc Email Logger</title>
+                                <sort_order>1</sort_order>
+                            </zenc_emaillogger>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
