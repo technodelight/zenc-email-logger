@@ -10,27 +10,12 @@ class Zenc_EmailLogger_RestController extends Zenc_EmailLogger_Controller_Restfu
     {
         $this->_formats['html'] = 'zenc_emaillogger/render_dump';
 
+        $data = $this->_getRestData();
         $this->render(array(
             'count' => $this->_getCollection()->getSize(),
-            'items' => $this->_getCollection()->walk(function($item) {
-                return array(
-                    'id' => $item->getId(),
-                    'subject' => $item->getSubject(),
-                    'created_at' => $item->getCreatedAt(),
-                );
-            }),
             'itemsCount' => $this->_getCollection()->getSize(),
-            'data' => array_values(
-                $this->_getCollection()->walk(function($item) {
-                    return array(
-                        'id' => $item->getId(),
-                        'subject' => $item->getSubject(),
-                        'to_email' => $item->getToEmail(),
-                        'to_name' => $item->getToName(),
-                        'created_at' => $item->getCreatedAt(),
-                    );
-                })
-            ),
+            'items' => $data,
+            'data' => array_values($data),
         ));
     }
 
@@ -38,6 +23,19 @@ class Zenc_EmailLogger_RestController extends Zenc_EmailLogger_Controller_Restfu
     {
         $item = $this->_getItem();
         $this->render($item->getData());
+    }
+
+    private function _getRestData()
+    {
+        return $this->_getCollection()->walk(function($item) {
+            return array(
+                'id' => $item->getId(),
+                'subject' => $item->getSubject(),
+                'to_email' => $item->getToEmail(),
+                'to_name' => $item->getToName(),
+                'created_at' => $item->getCreatedAt(),
+            );
+        });
     }
 
     private function _getCollection()
