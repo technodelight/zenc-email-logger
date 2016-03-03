@@ -2,6 +2,8 @@
 
 class Zenc_EmailLogger_RestController extends Zenc_EmailLogger_Controller_Restful
 {
+    const PAGE_SIZE = 20;
+
     protected $_methods = array('get');
 
     public function getListAction()
@@ -16,7 +18,19 @@ class Zenc_EmailLogger_RestController extends Zenc_EmailLogger_Controller_Restfu
                     'subject' => $item->getSubject(),
                     'created_at' => $item->getCreatedAt(),
                 );
-            })
+            }),
+            'itemsCount' => $this->_getCollection()->getSize(),
+            'data' => array_values(
+                $this->_getCollection()->walk(function($item) {
+                    return array(
+                        'id' => $item->getId(),
+                        'subject' => $item->getSubject(),
+                        'to_email' => $item->getToEmail(),
+                        'to_name' => $item->getToName(),
+                        'created_at' => $item->getCreatedAt(),
+                    );
+                })
+            ),
         ));
     }
 
@@ -28,7 +42,14 @@ class Zenc_EmailLogger_RestController extends Zenc_EmailLogger_Controller_Restfu
 
     private function _getCollection()
     {
-        return Mage::getModel('zenc_emaillogger/log')->getCollection();
+        $collection = Mage::getModel('zenc_emaillogger/log')->getCollection()
+            ->orderByTimeDesc();
+        if ($index = $this->getRequest()->getParam('pageIndex')) {
+            $collection->setCurPage($index);
+            $collection->setPageSize($this->getRequest()->getParam('pageSize') ?: self::PAGE_SIZE);
+        }
+
+        return $collection;
     }
 
     private function _getItem()
